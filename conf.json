@@ -1,0 +1,12 @@
+{
+    "devices": [
+        {
+            "type": "base",
+            "uuid": "aef2a553-a463-4f30-ad52-2fd70a6bd65c"
+        },
+        {
+            "type": "base",
+            "uuid": "a5448e71-1bbd-4634-bdd7-06a84bf2649e"
+        }
+    ]
+}
