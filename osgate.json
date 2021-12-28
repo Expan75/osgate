@@ -1,0 +1,55 @@
+{
+    "mqtt": {
+        "mqttBridgeHostname": "localhost",
+        "mqttBridgePort": 8883,
+        "configurationTopic": "",
+        "telemetryTopic": "",
+        "loggingTopic": ""
+    },
+    "provider": {
+        "name": "gcp",
+        "meta": {
+            "projectId": "string",
+            "cloudRegion": "string",
+            "registryId": "string",
+            "deviceId": "string",
+            "privateKeyFile": "string"
+        }
+    },
+    "devices": [
+        {
+            "name": "Terminal B",
+            "uuid": "aef2a553-a463-4f30-ad52-2fd70a6bd65c",
+            "protocol": "base",
+            "channels": [
+                {
+                    "name": "energy_kwh",
+                    "interval": "120s"
+                },
+                {
+                    "name": "energy_kw",
+                    "interval": "15s"
+                },
+                {
+                    "name": "energy_volt",
+                    "interval": "15s"
+                },
+                {
+                    "name": "energy_ampere",
+                    "interval": "15s"
+                }
+            ]
+        },
+        {
+            "name": "Fryslager 4",
+            "uuid": "a5448e71-1bbd-4634-bdd7-06a84bf2649e",
+            "protocol": "base",
+            "channels": [
+                {
+                    "name": "temperatur",
+                    "interval": "60s"
+                }
+            ]
+        }
+    ]
+}
