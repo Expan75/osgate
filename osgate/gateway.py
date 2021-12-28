@@ -1,7 +1,7 @@
 import logging
 from time import sleep
+from conf import ConfigurationService
 from devices import BaseDevice
-from config import ConfigurationService
 
 log = logging.getLogger(__name__)
 
@@ -14,9 +14,7 @@ class GatewayService():
 		devices = self.configurationService.config["devices"]
 		loaded_devices = []
 		for device in devices:
-			loaded_devices.append(
-				BaseDevice(device["name"], device["uuid"])
-			)
+			loaded_devices.append(BaseDevice(device["name"], device["uuid"]))
 		return loaded_devices
 
 	def run(self):

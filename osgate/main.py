@@ -1,7 +1,7 @@
 import logging
-from gateway import GatewayService
-from config import ConfigurationService
 from cli import cli
+from conf import ConfigurationService
+from gateway import GatewayService
 
 def main():
 	args = cli()
