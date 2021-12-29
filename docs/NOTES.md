@@ -20,4 +20,10 @@ Hierachy-wise, adopt data source pattern
         |---mbus-device2
         |---mbus-device3
 
-Lifecycle of data sources
+What's the point of this?
+- Every data source will require a different connector.
+- Connectors need to run concurrently. (threads)
+
+Goals:
+1. Allow data gathering from at least two different MQTT brokers. (fake it for now using two seperate connections to different topics)
+2. Each "module" is responsible for sending data into a single topic. Main thread may opt for final processing before shipping to export topic.
