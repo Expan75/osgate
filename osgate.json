@@ -6,48 +6,62 @@
         "telemetryTopic": "",
         "loggingTopic": ""
     },
-    "provider": {
-        "name": "gcp",
-        "meta": {
-            "projectId": "string",
-            "cloudRegion": "string",
-            "registryId": "string",
-            "deviceId": "string",
-            "privateKeyFile": "string"
-        }
-    },
-    "devices": [
+    "deviceSources": [
         {
-            "name": "Terminal B",
-            "uuid": "aef2a553-a463-4f30-ad52-2fd70a6bd65c",
-            "protocol": "base",
-            "channels": [
+            "name": "Kontor server",
+            "protocol": "default",
+            "uuid": "06660949-eda8-4535-b96f-0d339562a26c",
+            "devices": [
                 {
-                    "name": "energy_kwh",
-                    "interval": "120s"
+                    "name": "Terminal B",
+                    "uuid": "aef2a553-a463-4f30-ad52-2fd70a6bd65c",
+                    "channels": [
+                        {
+                            "name": "energy_kwh",
+                            "interval": "120s"
+                        },
+                        {
+                            "name": "energy_kw",
+                            "interval": "15s"
+                        }
+                    ]
                 },
                 {
-                    "name": "energy_kw",
-                    "interval": "15s"
-                },
-                {
-                    "name": "energy_volt",
-                    "interval": "15s"
-                },
-                {
-                    "name": "energy_ampere",
-                    "interval": "15s"
+                    "name": "Frysterminal",
+                    "uuid": "a5448e71-1bbd-4634-bdd7-06a84bf2649e",
+                    "channels": [
+                        {
+                            "name": "temperatur",
+                            "interval": "60s"
+                        }
+                    ]
                 }
             ]
         },
         {
-            "name": "Fryslager 4",
-            "uuid": "a5448e71-1bbd-4634-bdd7-06a84bf2649e",
-            "protocol": "base",
-            "channels": [
+            "name": "Serverrum server",
+            "protocol": "default",
+            "uuid": "57bd86d8-6f7e-4c49-ac6a-d57ff0ca0407",
+            "devices": [
                 {
-                    "name": "temperatur",
-                    "interval": "60s"
+                    "name": "Fryslager 5",
+                    "uuid": "16cf403a-69cd-462e-bdbf-e1de760d5173",
+                    "channels": [
+                        {
+                            "name": "temperatur",
+                            "interval": "60s"
+                        }
+                    ]
+                },
+                {
+                    "name": "Fryslager 6",
+                    "uuid": "2624a2bf-b325-41b5-9272-75b31ac47fff",
+                    "channels": [
+                        {
+                            "name": "temperatur",
+                            "interval": "60s"
+                        }
+                    ]
                 }
             ]
         }

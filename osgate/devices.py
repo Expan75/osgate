@@ -1,25 +1,23 @@
+import logging
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-class Device(ABC):
-    def __init__(self, name: str, uuid: str, *args, **kwargs):
-        pass
+log = logging.getLogger(__name__)
 
+class Device(ABC):
     @abstractmethod
     def ping() -> str:
-        pass
-
-    @abstractmethod
-    def ingest() -> None:
         pass
 
 @dataclass
-class BaseDevice(Device):
-    protocol: str = "base"
-    ingestion: str = "pull"
-     
+class DefaultDevice(Device):
+    name: str = ""
+    uuid: str = ""
+
     def ping() -> str:
         return "pong"
 
-    def ingest() -> None:
-        print("something was ingested.")
+def create_device(name, uuid, device_type=None):
+    match device_type:
+        case _:        
+            return DefaultDevice(name=name, uuid=uuid)

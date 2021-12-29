@@ -4,4 +4,4 @@ An experiment into IoT Gateway architecture and proper OO with some added concur
 
 1. Realiable
 2. Configurable
-3. Extendable
+3. Opinionated (MQTT bridge or go home)
