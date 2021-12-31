@@ -1,12 +1,12 @@
 {
     "mqtt": {
-        "mqttBridgeHostname": "localhost",
-        "mqttBridgePort": 8883,
+        "host": "localhost",
+        "port": 8883,
         "configurationTopic": "",
         "telemetryTopic": "",
         "loggingTopic": ""
     },
-    "deviceSources": [
+    "connectors": [
         {
             "name": "Kontor server",
             "protocol": "default",
