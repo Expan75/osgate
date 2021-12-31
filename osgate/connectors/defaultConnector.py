@@ -1,18 +1,21 @@
 import logging
-from connector import Connector
-from ..devices.device import create_device
 from time import sleep
+from queue import Queue
+from typing  import List
+
+from .connector import Connector
+from devices.deviceFactory import create_device
 
 log = logging.getLogger(__name__)
 
 class DefaultConnector(Connector):
     """Used for testing of design pattern; allows non-existing connector and devices to be source of data"""
-    def __init__(self, name, uuid, outbound_queue, devices):
+    def __init__(self, name: str, uuid: str, q: Queue, devices: List):
         self.protocol = "default"
         self.name = name
         self.uuid = uuid
-        self.outbound_queue = outbound_queue
-        self.devices = [create_device(device) for device in devices]
+        self.outbound_queue = q
+        self.devices = [create_device(device["type"], *device) for device in devices]
 
     def __str__(self):
         return f"Connector({self.name},{self.uuid},devices={len(self.devices)})"

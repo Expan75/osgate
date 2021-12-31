@@ -1,4 +1,4 @@
-from device import Device, DeviceChannel
+from devices.device import Device, DeviceChannel
 
 class DefaultDevice(Device):
     def __init__(self, name, uuid, channels):

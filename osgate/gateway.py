@@ -2,7 +2,7 @@ import logging
 from queue import Queue
 from time import sleep
 from configuration import ConfigurationService
-from connectors.connector import create_connector
+from connectors.connectorFactory import create_connector
 
 log = logging.getLogger(__name__)
 
@@ -11,12 +11,17 @@ class GatewayService():
 	def __init__(self, configService: ConfigurationService):
 		self.queue = Queue(0)
 		self.configurationService = configService
-		self.connectors = self.load_connectors()
+		self.connectors = self.setup_connectors()
 
 	def setup_connectors(self):
 		log.info("Loading connectors")
 		connectors = self.configurationService.config["connectors"]
-		loaded_connectors = [create_connector(*connector) for connector in connectors]
+		loaded_connectors = []
+		for connector_data in connectors:
+			# TODO: fix initalisation
+			protocol, *connector_meta = connector_data
+			connector = create_connector(protocol, *connector_meta)
+			loaded_connectors.append(connector)
 		log.info(f"{len(loaded_connectors)} connectors loaded")
 		return loaded_connectors
 

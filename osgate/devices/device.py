@@ -1,6 +1,5 @@
 import logging
 from abc import ABC, abstractmethod
-from defaultDevice import DefaultDevice
 from dataclasses import dataclass
 
 log = logging.getLogger(__name__)
@@ -19,9 +18,3 @@ class Device(ABC):
     @abstractmethod
     def ping() -> str:
         pass
-
-def create_device(*args, **kwargs):
-    log.debug(f"""creating {kwargs["device_type"]} device with args: {args}""")
-    match kwargs["device_type"]:
-        case _:        
-            return DefaultDevice(*args)

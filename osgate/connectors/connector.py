@@ -3,12 +3,11 @@ from queue import Queue
 from typing import List
 from threading import Thread
 from abc import ABC, abstractmethod
-from defaultConnector import DefaultConnector
-from ..devices.device import Device
+from devices.device import Device
 
 log = logging.getLogger(__name__)
 
-class Connector(ABC, Thread):
+class Connector(ABC):
     """In charge of facilitating communication between gatewayService and devices"""
     name: str
     uuid: str
@@ -31,9 +30,3 @@ class Connector(ABC, Thread):
     @abstractmethod
     def ping() -> str:
         pass
-
-def create_connector(*args, **kwargs) -> Connector:
-    """Factory for creating new connectors"""
-    match kwargs["connector_type"]:
-        case _:        
-            return DefaultConnector(*args)

@@ -8,11 +8,12 @@
     },
     "connectors": [
         {
-            "name": "Kontor server",
             "protocol": "default",
+            "name": "Kontor server",
             "uuid": "06660949-eda8-4535-b96f-0d339562a26c",
             "devices": [
                 {
+                    "type": "sensor",
                     "name": "Terminal B",
                     "uuid": "aef2a553-a463-4f30-ad52-2fd70a6bd65c",
                     "channels": [
@@ -27,6 +28,7 @@
                     ]
                 },
                 {
+                    "type": "sensor",
                     "name": "Frysterminal",
                     "uuid": "a5448e71-1bbd-4634-bdd7-06a84bf2649e",
                     "channels": [
@@ -39,11 +41,12 @@
             ]
         },
         {
-            "name": "Serverrum server",
             "protocol": "default",
+            "name": "Serverrum server",
             "uuid": "57bd86d8-6f7e-4c49-ac6a-d57ff0ca0407",
             "devices": [
                 {
+                    "type": "sensor",
                     "name": "Fryslager 5",
                     "uuid": "16cf403a-69cd-462e-bdbf-e1de760d5173",
                     "channels": [
@@ -54,6 +57,7 @@
                     ]
                 },
                 {
+                    "type": "sensor",
                     "name": "Fryslager 6",
                     "uuid": "2624a2bf-b325-41b5-9272-75b31ac47fff",
                     "channels": [
