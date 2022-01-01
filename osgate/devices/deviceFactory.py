@@ -2,6 +2,7 @@ from devices.device import Device
 from devices.defaultDevice import DefaultDevice, DeviceChannel
 
 def create_device_channel(channel: dict) -> DeviceChannel:
+    print(f"{channel=}", )
     return DeviceChannel(
         name = channel.get('name'),
         unit = channel.get('unit'),

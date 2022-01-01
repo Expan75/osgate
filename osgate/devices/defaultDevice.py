@@ -1,10 +1,11 @@
 from devices.device import Device, DeviceChannel
+from typing import List
 
 class DefaultDevice(Device):
-    def __init__(self, name, uuid, channels):
+    def __init__(self, name: str, uuid: str, channels: List[DeviceChannel]):
         self.name = name
         self.uuid = uuid
-        self.channels = [DeviceChannel(channel) for channel in channels]
+        self.channels = channels
 
     def ping() -> str:
         return "pong"
