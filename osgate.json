@@ -19,10 +19,12 @@
                     "channels": [
                         {
                             "name": "energy_kwh",
+                            "unit": "kwh",
                             "interval": "120s"
                         },
                         {
                             "name": "energy_kw",
+                            "unit": "kw",
                             "interval": "15s"
                         }
                     ]
@@ -33,7 +35,8 @@
                     "uuid": "a5448e71-1bbd-4634-bdd7-06a84bf2649e",
                     "channels": [
                         {
-                            "name": "temperatur",
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
                             "interval": "60s"
                         }
                     ]
@@ -51,7 +54,8 @@
                     "uuid": "16cf403a-69cd-462e-bdbf-e1de760d5173",
                     "channels": [
                         {
-                            "name": "temperatur",
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
                             "interval": "60s"
                         }
                     ]
@@ -62,7 +66,8 @@
                     "uuid": "2624a2bf-b325-41b5-9272-75b31ac47fff",
                     "channels": [
                         {
-                            "name": "temperatur",
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
                             "interval": "60s"
                         }
                     ]

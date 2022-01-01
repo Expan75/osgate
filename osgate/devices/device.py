@@ -9,6 +9,7 @@ class DeviceChannel():
     """Used to denote a unique timeseries source on a device; e.g. kw/h readings from a sensor"""
     name: str
     unit: str
+    interval: str
 
 class Device(ABC):
     name: str
