@@ -14,15 +14,15 @@ class GatewayService():
 		self.connectors = self.setup_connectors()
 
 	def setup_connectors(self):
-		log.info("Loading connectors")
+		log.debug("Loading connectors")
 		connectors = self.configurationService.config["connectors"]
 		loaded_connectors = []
 		for connector_data in connectors:
-			# TODO: fix initalisation
-			protocol, *connector_meta = connector_data
-			connector = create_connector(protocol, *connector_meta)
+			protocol = connector_data.pop("protocol")
+			connector_data["queue"] = self.queue
+			connector = create_connector(protocol, connector_data)
 			loaded_connectors.append(connector)
-		log.info(f"{len(loaded_connectors)} connectors loaded")
+		log.debug(f"{len(loaded_connectors)} connectors loaded")
 		return loaded_connectors
 
 	def run(self):
