@@ -78,9 +78,13 @@
         },
         {
             "protocol": "mqtt",
-            "name": "Serverrum mqtt server",
+            "name": "Lager34",
             "uuid": "57bd86d8-6f7e-4c49-a26a-d57ff0ca0407",
-            "meta": { "somekey" : "just a value" },
+            "meta": { 
+                "host": "localhost", 
+                "port": 1883,
+                "keep_alive": 60
+            },
             "devices": [
                 {
                     "type": "sensor",

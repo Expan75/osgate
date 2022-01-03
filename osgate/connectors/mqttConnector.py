@@ -9,10 +9,10 @@ from paho.mqtt import client as mqtt_client
 from connectors.connector import Connector
 from devices.deviceFactory import create_device
 
-log = logging.getLogger(__name__)
+log = logging.getLogger("connector")
 
 @dataclass
-class MqttConnectionDetails():
+class MqttConnectorMetaData():
     host: str = "localhost"
     port: int = 1883
     keep_alive: int = 60
@@ -25,8 +25,8 @@ class MqttConnector(Connector):
         self.uuid = uuid
         self.outbound_queue = queue
         self.client = mqtt_client.Client()
-        self.connector_meta = meta
-
+        self.connector_meta = MqttConnectorMetaData(**meta)
+        
         device_types = [device.pop("type") for device in devices]
         self.devices = [create_device(*device) for device in zip(device_types, devices)]
 
@@ -48,4 +48,4 @@ class MqttConnector(Connector):
         return "pong"
 
     def __str__(self):
-        return f"Connector({self.protocol}-{self.name},{self.uuid},devices={len(self.devices)})"
+        return f"{self.name} ({self.protocol}Connector) - {self.uuid} - devices={len(self.devices)})"
