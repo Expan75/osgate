@@ -1,7 +1,6 @@
 import logging
 from queue import Queue
 from typing import List
-from threading import Thread
 from abc import ABC, abstractmethod
 from devices.device import Device
 
@@ -14,6 +13,7 @@ class Connector(ABC):
     protocol: str
     outbound_queue: Queue
     devices: List[Device]
+    connector_meta: dict
 
     @abstractmethod
     def initialise() -> None:

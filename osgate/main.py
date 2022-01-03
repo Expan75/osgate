@@ -1,6 +1,6 @@
 from cli import cli
-from configuration import ConfigurationService, ConfigurationArguments
 from gateway import GatewayService
+from configuration import ConfigurationService, ConfigurationArguments
 
 def main():
 	args = ConfigurationArguments(cli())

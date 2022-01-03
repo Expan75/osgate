@@ -11,6 +11,7 @@
             "protocol": "default",
             "name": "Kontor server",
             "uuid": "06660949-eda8-4535-b96f-0d339562a26c",
+            "meta": { "somekey" : "somevalue" },
             "devices": [
                 {
                     "type": "sensor",
@@ -47,6 +48,7 @@
             "protocol": "default",
             "name": "Serverrum server",
             "uuid": "57bd86d8-6f7e-4c49-ac6a-d57ff0ca0407",
+            "meta": { "somekey" : "someothervalue" },
             "devices": [
                 {
                     "type": "sensor",
@@ -64,6 +66,26 @@
                     "type": "sensor",
                     "name": "Fryslager 6",
                     "uuid": "2624a2bf-b325-41b5-9272-75b31ac47fff",
+                    "channels": [
+                        {
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
+                            "interval": "60s"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "mqtt",
+            "name": "Serverrum mqtt server",
+            "uuid": "57bd86d8-6f7e-4c49-a26a-d57ff0ca0407",
+            "meta": { "somekey" : "just a value" },
+            "devices": [
+                {
+                    "type": "sensor",
+                    "name": "Fryslager 6",
+                    "uuid": "2444a2bf-b325-41b5-9272-75b31ac47fff",
                     "channels": [
                         {
                             "name": "temperature",

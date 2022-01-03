@@ -25,8 +25,15 @@ class GatewayService():
 		log.debug(f"{len(loaded_connectors)} connectors loaded")
 		return loaded_connectors
 
+	def start_connectors(self):
+		for connector in self.connectors:
+			connector.initialise()
+
 	def run(self):
+		self.start_connectors()
 		log.info(f"GatewayService fully initalised, starting device collection using {len(self.connectors)} connectors")
 		while True:
-			sleep(2.0)
-			print("...")
+			sleep(25)
+			log.info("restarting connectors")
+			for connector in self.connectors:
+				connector.restart()
