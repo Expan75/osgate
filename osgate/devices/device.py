@@ -15,6 +15,7 @@ class Device(ABC):
     name: str
     uuid: str
     channels: list[DeviceChannel]
+    device_meta: dict
 
     @abstractmethod
     def ping() -> str:
