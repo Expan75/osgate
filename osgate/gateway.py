@@ -1,13 +1,16 @@
 import logging
 from queue import Queue
-from time import sleep
 from configuration import ConfigurationService
 from connectors.connectorFactory import create_connector
+
+from werkzeug.wrappers import Request, Response
+from werkzeug.serving import run_simple
+from jsonrpc import JSONRPCResponseManager, dispatcher
 
 log = logging.getLogger(__name__)
 
 class GatewayService():
-	"""Gateway driver: in charge of initalizing dependencies and message traffic (operates as singleton)"""
+	"""Gateway driver: in charge of initalizing dependencies and message traffic (operates as singleton web server)"""
 	def __init__(self, configService: ConfigurationService):
 		self.queue = Queue(0)
 		self.configurationService = configService
@@ -29,11 +32,17 @@ class GatewayService():
 		for connector in self.connectors:
 			connector.initialise()
 
+	@Request.application
+	def rpc_application(self, request):
+		"""Implments the rpc server method handlers"""
+		dispatcher["ping"] = lambda: "pong"
+		dispatcher["connectors.list"] = lambda: [{"protocol": connector.protocol, "name": connector.name} for connector in self.connectors]
+
+		response = JSONRPCResponseManager.handle(
+			request.data, dispatcher)
+		return Response(response.json, mimetype='application/json')
+
 	def run(self):
-		self.start_connectors()
 		log.info(f"GatewayService fully initalised, starting device collection using {len(self.connectors)} connectors")
-		while True:
-			sleep(25)
-			log.info("restarting connectors")
-			for connector in self.connectors:
-				connector.restart()
+		self.start_connectors()
+		run_simple("localhost", 9090, self.rpc_application)

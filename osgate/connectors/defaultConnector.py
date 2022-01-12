@@ -1,5 +1,6 @@
 import logging
-from time import sleep
+import json
+import time
 from queue import Queue
 from typing  import List
 
@@ -25,7 +26,7 @@ class DefaultConnector(Connector):
     
     def shutdown(self) -> None:
         log.debug(f"shutting down {self}...")
-        sleep(2)
+        time.sleep(2)
         log.debug(f"{self} gracefully shutdown.")
     
     def restart(self) -> None:
