@@ -1,10 +1,7 @@
-import logging
 from queue import Queue
 from typing import List
 from abc import ABC, abstractmethod
 from devices.device import Device
-
-log = logging.getLogger("connector")
 
 class Connector(ABC):
     """In charge of facilitating communication between gatewayService and devices"""

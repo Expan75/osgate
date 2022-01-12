@@ -2,14 +2,13 @@ import logging
 from time import sleep
 from queue import Queue
 from typing  import List
-from threading import Thread
 from dataclasses import dataclass
 from paho.mqtt import client as mqtt_client
 
 from connectors.connector import Connector
 from devices.deviceFactory import create_device
 
-log = logging.getLogger("connector")
+log = logging.getLogger(__name__)
 
 @dataclass
 class MqttConnectorMetaData():
@@ -48,4 +47,4 @@ class MqttConnector(Connector):
         return "pong"
 
     def __str__(self):
-        return f"{self.name} ({self.protocol}Connector) - {self.uuid} - devices={len(self.devices)})"
+        return f"{self.name} ({self.protocol}) - devices={len(self.devices)})"

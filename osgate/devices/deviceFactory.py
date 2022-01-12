@@ -2,7 +2,7 @@ import logging
 from devices.device import Device
 from devices.defaultDevice import DefaultDevice, DeviceChannel
 
-log = logging.getLogger("devices")
+log = logging.getLogger(__name__)
 
 def create_device_channel(channel: dict) -> DeviceChannel:
     return DeviceChannel(

@@ -6,7 +6,7 @@ from typing  import List
 from connectors.connector import Connector
 from devices.deviceFactory import create_device
 
-log = logging.getLogger("connector")
+log = logging.getLogger(__name__)
 
 class DefaultConnector(Connector):
     """Used for testing of design pattern; allows non-existing connector and devices to be source of data"""
@@ -19,7 +19,6 @@ class DefaultConnector(Connector):
 
         device_types = [device.pop("type") for device in devices]
         self.devices = [create_device(*device) for device in zip(device_types, devices)]
-
 
     def initialise(self) -> None:
         log.debug(f"{self} initalised")
@@ -39,4 +38,4 @@ class DefaultConnector(Connector):
         return "pong"
     
     def __str__(self):
-        return f"{self.name} ({self.protocol}Connector) - {self.uuid} - devices={len(self.devices)})"
+        return f"{self.name} ({self.protocol}) - devices={len(self.devices)})"

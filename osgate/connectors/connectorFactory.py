@@ -3,7 +3,7 @@ import logging
 from connectors.defaultConnector import DefaultConnector
 from connectors.mqttConnector import MqttConnector
 
-log = logging.getLogger("connector")
+log = logging.getLogger(__name__)
 
 def create_connector(protocol: str, connector_data: dict):
     """Factory for creating new connectors"""
