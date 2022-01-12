@@ -12,6 +12,7 @@ class DeviceChannel():
     interval: str
 
 class Device(ABC):
+    """Used to represnt a physical entity that produces, and potentially consumes data. Think sensor.""" 
     name: str
     uuid: str
     channels: list[DeviceChannel]
