@@ -24,7 +24,7 @@ class AbstractConnector(ABC):
 
 class ConnectorBase():
     """Captures common state for connectors and common boilerplate methods"""
-    def __init__(self, name: str, uuid: str, devices: List[Device], queue: Queue, meta: dict):
+    def __init__(self, name: str, uuid: str, devices: List, queue: Queue, meta: dict):
         self.protocol = "default"
         self.name = name
         self.uuid = uuid
