@@ -14,9 +14,10 @@ class GatewayService():
 	def __init__(self, configService: ConfigurationService):
 		self.queue = Queue(0)
 		self.configurationService = configService
-		self.connectors = self.setup_connectors()
+		self.load_connectors()
 
-	def setup_connectors(self):
+	def load_connectors(self):
+		"""Initalises connector instances based off config; can be used to reload and reflect changed config state"""
 		log.debug("Loading connectors")
 		connectors = self.configurationService.config["connectors"]
 		loaded_connectors = []
@@ -25,28 +26,36 @@ class GatewayService():
 			connector_data["queue"] = self.queue
 			connector = create_connector(protocol, connector_data)
 			loaded_connectors.append(connector)
+		self.connectors = loaded_connectors
 		log.debug(f"{len(loaded_connectors)} connectors loaded")
-		return loaded_connectors
 
 	def start_connectors(self):
+		"""Starts a background thread for each connector"""
 		for connector in self.connectors:
-			connector.initialise()
-	
-	def restart_connectors(self):
-		for connector in self.connectors:
-			connector.restart()
+			connector.start()
 
-	def list_connector_devices(self, name) -> list:
-		matching_connectors = [connector for connector in self.connectors if connector.name in name]
-		return [device.name for device in matching_connectors[0].devices] if len(matching_connectors) != 0 else []
+	def stop_connectors(self):
+		"""Gracefully stops the background thread for each connector"""
+		for connector in self.connectors:
+			connector.stop()
+
+	def restart_connectors(self):
+		"""Gracefully reloads the configuration and restarts the background thread for each connector"""
+		self.stop_connectors()
+		self.load_connectors()
+		self.start_connectors()
+
+	def list_devices(self, connector_name: str) -> list:
+		"""List devices of a connector (requires a name)"""
+		connector = [connector for connector in self.connectors if connector.name == connector_name]
+		return [device.name for device in connector[0]] if connector else []
 
 	@Request.application
 	def rpc_application(self, request):
 		"""Implments the rpc server method handlers"""
 		dispatcher["ping"] = lambda: "pong"
 		dispatcher["connectors.list"] = lambda: [{"protocol": connector.protocol, "name": connector.name} for connector in self.connectors]
-		dispatcher["connectors.restart"] = lambda: self.restart_connectors()
-		dispatcher["connectors.listDevices"] = lambda name: self.list_connector_devices(name)
+		dispatcher["devices.list"] = lambda connector_name: self.list_devices(connector_name)
 
 		response = JSONRPCResponseManager.handle(
 			request.data, dispatcher)

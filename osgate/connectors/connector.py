@@ -1,29 +1,27 @@
 from queue import Queue
 from typing import List
 from abc import ABC, abstractmethod
+from threading import Thread
 from devices.deviceFactory import create_device
 
 class AbstractConnector(ABC):
     """Abstract base class for connector. A connector is used as the interface between devices and the gateway"""    
     @abstractmethod
-    def initialise() -> None:
+    def run() -> None:
         pass
 
     @abstractmethod
-    def shutdown() -> None:
-        pass
-    
-    @abstractmethod
-    def restart() -> None:
+    def stop() -> None:
         pass
 
     @abstractmethod
     def ping() -> str:
         pass
 
-class ConnectorBase():
+class ConnectorBase(Thread):
     """Captures common state for connectors and common boilerplate methods"""
     def __init__(self, name: str, uuid: str, devices: List, queue: Queue, meta: dict):
+        Thread.__init__(self, daemon=True)
         self.protocol = "default"
         self.name = name
         self.uuid = uuid
@@ -35,3 +33,7 @@ class ConnectorBase():
     
     def __str__(self):
         return f"{self.name} ({self.protocol}) - devices={len(self.devices)})"
+
+    def __iter__(self):
+        """Enables looping over devices"""
+        return iter(self.devices)
