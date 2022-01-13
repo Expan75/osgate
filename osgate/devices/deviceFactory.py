@@ -1,6 +1,5 @@
 import logging
-from devices.device import Device
-from devices.defaultDevice import DefaultDevice, DeviceChannel
+from devices.device import Device, DefaultDevice, DeviceChannel
 
 log = logging.getLogger(__name__)
 
@@ -19,6 +18,6 @@ def create_device(device_type: str, device_data: dict) -> Device:
     channels    = [create_device_channel(channel) for channel in device_data.get("channels")],
     
     match device_type: 
-        case "sensor": return DefaultDevice(name, uuid, channels, meta)
+        case "default": return DefaultDevice(name, uuid, channels, meta)
         case _:
             raise ValueError(f"Invalid device type: {device_type}; perhaps there's a typo in the config file.")
