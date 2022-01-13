@@ -31,12 +31,22 @@ class GatewayService():
 	def start_connectors(self):
 		for connector in self.connectors:
 			connector.initialise()
+	
+	def restart_connectors(self):
+		for connector in self.connectors:
+			connector.restart()
+
+	def list_connector_devices(self, name) -> list:
+		matching_connectors = [connector for connector in self.connectors if connector.name in name]
+		return [device.name for device in matching_connectors[0].devices] if len(matching_connectors) != 0 else []
 
 	@Request.application
 	def rpc_application(self, request):
 		"""Implments the rpc server method handlers"""
 		dispatcher["ping"] = lambda: "pong"
 		dispatcher["connectors.list"] = lambda: [{"protocol": connector.protocol, "name": connector.name} for connector in self.connectors]
+		dispatcher["connectors.restart"] = lambda: self.restart_connectors()
+		dispatcher["connectors.listDevices"] = lambda name: self.list_connector_devices(name)
 
 		response = JSONRPCResponseManager.handle(
 			request.data, dispatcher)

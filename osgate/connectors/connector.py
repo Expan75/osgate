@@ -35,16 +35,3 @@ class ConnectorBase():
     
     def __str__(self):
         return f"{self.name} ({self.protocol}) - devices={len(self.devices)})"
-
-    def __iter__(self):
-        self.__device_index = 0
-        return self
-
-    def __next__(self):
-        """Allows the [device for device in connnector]"""
-        if self.__device_index <= len(self.devices):
-            device = self.devices[self.__device_index]
-            self.__device_index += 1
-            return device
-        else:
-            raise StopIteration
