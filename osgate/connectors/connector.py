@@ -1,7 +1,6 @@
 from queue import Queue
 from typing import List
 from abc import ABC, abstractmethod
-from devices.device import Device
 from devices.deviceFactory import create_device
 
 class AbstractConnector(ABC):
