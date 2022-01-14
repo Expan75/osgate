@@ -5,8 +5,6 @@ from connectors.connector import AbstractConnector, ConnectorBase
 
 log = logging.getLogger(__name__)
 
-"""THE GOAL: be able to source data from two seperate brokers simultaneously."""
-
 class MqttConnector(AbstractConnector, ConnectorBase):
     """Used to interact with devices through an MQTT broker"""
     def run(self) -> None:
