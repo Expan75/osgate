@@ -2,18 +2,18 @@ import pytest
 from osgate import configuration
 
 def test_invalid_config_directory():
-    args = configuration.configurationigurationArguments(True, "/")
+    args = configuration.ConfigurationArguments(True, "/")
     with pytest.raises(IsADirectoryError):
-        configurationigService = configuration.configurationigurationService(args)
+        configurationigService = configuration.ConfigurationService(args)
 
 def test_invalid_configurationig_filepath():
-    args = configuration.configurationigurationArguments(True, "/something.txt")
+    args = configuration.ConfigurationArguments(True, "/something.txt")
     with pytest.raises(FileNotFoundError):
-        configurationigService = configuration.configurationigurationService(args)
+        configurationigService = configuration.ConfigurationService(args)
 
 def test_valid_configurationig_filepath():
-    args = configuration.configurationigurationArguments(True, "osgate.json")
-    configurationigService = configuration.configurationigurationService(args)
+    args = configuration.ConfigurationArguments(True, "osgate.json")
+    configurationigService = configuration.ConfigurationService(args)
     assert configurationigService.filepath == args.filepath
 
 def test_configuration_read():
