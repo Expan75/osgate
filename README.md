@@ -1,8 +1,9 @@
 # osgate
 
-osgate is an open source python implmentation of an indsutrial grade IoT gateway; primarily aimed at data collection via sensors in an industrial context.
-
-Design-wise, it was made with a cloud-first (albeit durable) approach in the sense that configuration is meant to be remotely sourced.
+osgate is an open source python implmentation of an indsutrial grade IoT gateway; primarily aimed at data collection via sensors in an industrial context Design-wise, the gateway is opionated. In short, these opinions are summarised in:
+1. Export to a local MQTT broker (bridged to a cloud broker) is the one and only way of getting data out. This ensures a cloud-agnostic and durable (via persistant sessions) data export strategy.
+2. Configuration is designed with a pull-first strategy. This ensures the burden of truth is placed on some aggregate system rather than individual gateways.
+3. Given the point above, no internal Database is used in favour of a single cached config .json file.
 
 # Roadmap
 
