@@ -7,6 +7,8 @@ log = logging.getLogger(__name__)
 
 class DefaultConnector(AbstractConnector, ConnectorBase):
     """Used for testing of design pattern; allows non-existing connector and devices to be source of data"""
+    protocol = "default"
+
     def run(self) -> None:
         while True:
             log.debug(f"{self} connector running, brum brum...")

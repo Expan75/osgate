@@ -23,7 +23,6 @@ class ConnectorBase(Thread):
     """Captures common state for connectors and common boilerplate methods"""
     def __init__(self, name: str, uuid: str, devices: List, queue: Queue, meta: dict):
         Thread.__init__(self, daemon=True)
-        self.protocol = "default"
         self.name = name
         self.uuid = uuid
         self.outbound_queue = queue

@@ -35,7 +35,7 @@ Assuming all the above dependencies are installed (and path:able), use the follo
 
 1. Download via Git
 ```console
-git clone git@github.com:expan75/osgate
+git clone git@github.com:expan75/osgate && cd osgate
 ```
 2. Create virutal environment and install dependencies   
 ```console

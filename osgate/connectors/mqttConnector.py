@@ -7,6 +7,8 @@ log = logging.getLogger(__name__)
 
 class MqttConnector(AbstractConnector, ConnectorBase):
     """Used to interact with devices through an MQTT broker"""
+    protocol = "mqtt"
+
     def run(self) -> None:
         while True:
             log.debug(f"{self} connector running, brum brum...")
