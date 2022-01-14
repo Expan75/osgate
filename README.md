@@ -22,13 +22,13 @@ This is just to frame some form of commitment. Note that these are in no particu
 
 # Getting started
 
-## Core External Dependencies
+### Core External Dependencies
 
 - [Docker](https://www.docker.com/)
 - [Python](https://python.org) >= 3.6
 - [Mosquitto](https://mosquitto.org/) - Implmentation relies on a locally running MQTT broker (for bridging with a cloud twin).
 
-## Running the server
+### Running the server
 
 Assuming all the above dependencies are installed (and path:able), use the following to start:
 
@@ -49,7 +49,7 @@ python3 ./osgate/main -d
 python -m test pytest
 ```
 
-## Contributing
+# Contributing
 
 To contribute, you must first acquint yourself with [this gitbranching model](https://nvie.com/posts/a-successful-git-branching-model). In short, develop contains the latest code changes that have gone through inital code review. The develop branch is what you as a developer will branch off of for new features etc.
 
@@ -82,7 +82,7 @@ Regardless if you are getting reviewed or are reviewing, you should comply with 
 ```console
 <insert linting command here>
 ```
-## Continuous Integration and Continuous Deployment
+### Continuous Integration and Continuous Deployment
 
 ```console
 <insert ci/cd here>
