@@ -27,8 +27,8 @@ class ConfigurationService():
         try:
             with open(self.filepath, "r") as config_file:
                 config = json.load(config_file)
-        except FileNotFoundError as e:
-            log.critical(f"Configfile could not be found at {self.filepath}, resulting in FileNotFoundError: ", e)
+        except (FileNotFoundError, IsADirectoryError) as e:
+            log.error(f"Configfile could not be found at {self.filepath}")
             raise e
         log.debug("Loaded configuration file.")
         return config

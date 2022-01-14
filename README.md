@@ -28,7 +28,7 @@ python3 ./osgate/main -d
 ```
 6. Alternatively, run tests via pytest
 ```console
-pytest
+python -m test pytest
 ```
 
 ## Contributing
