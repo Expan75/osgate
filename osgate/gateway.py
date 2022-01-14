@@ -1,11 +1,11 @@
 import logging
 from queue import Queue
-from configuration import ConfigurationService
-from connectors.connectorFactory import create_connector
-
+from jsonrpc import JSONRPCResponseManager, dispatcher
 from werkzeug.wrappers import Request, Response
 from werkzeug.serving import run_simple
-from jsonrpc import JSONRPCResponseManager, dispatcher
+
+from configuration import ConfigurationService
+from connectors.connectorFactory import create_connector
 
 log = logging.getLogger(__name__)
 

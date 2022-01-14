@@ -1,9 +1,9 @@
-from cli import cli
+from cli import parse_args
 from gateway import GatewayService
 from configuration import ConfigurationService, ConfigurationArguments
 
 def main():
-	args = ConfigurationArguments(cli())
+	args = ConfigurationArguments(parse_args())
 	configService = ConfigurationService(args)
 	gatewayService = GatewayService(configService)
 	gatewayService.run()

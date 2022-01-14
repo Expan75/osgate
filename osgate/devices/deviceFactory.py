@@ -1,4 +1,5 @@
 import logging
+
 from devices.device import Device, DefaultDevice, DeviceChannel
 
 log = logging.getLogger(__name__)
