@@ -1,7 +1,6 @@
-import time
 import logging
-from paho.mqtt import client as mqtt_client
 from dataclasses import dataclass
+from paho.mqtt import client as mqtt_client
 
 from connectors.connector import AbstractConnector, ConnectorBase
 
@@ -18,13 +17,13 @@ class MqttConnector(AbstractConnector, ConnectorBase):
     protocol = "mqtt"
     client = mqtt_client.Client()
 
-    def run(self) -> None:
+    def run(self):
         log.debug(f"starting {self}...")
         self.register_handlers()
         self.connect()
         self.client.loop_forever()
-    
-    def stop(self) -> None:
+  
+    def stop(self):
         log.debug(f"shutting down {self}...")
         exit()
     
@@ -39,6 +38,10 @@ class MqttConnector(AbstractConnector, ConnectorBase):
 
     def on_message(self, client, userdata, msg):
         """General callback upon message to topics currently being subscribed too"""
+        # Supported Message Strategies
+        # 1. Single Topic with json key value pair denoting unique device
+        # 2. Multiple topics where each topic represents a device
+        # 3. Mutple topics where each topic represents a device channel
         print(msg.topic+" "+str(msg.payload))
 
     def register_handlers(self):
