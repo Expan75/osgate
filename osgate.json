@@ -83,7 +83,7 @@
             "meta": { 
                 "host": "localhost", 
                 "port": 1883,
-                "keep_alive": 60
+                "keepalive": 60
             },
             "devices": [
                 {

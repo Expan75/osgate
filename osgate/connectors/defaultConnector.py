@@ -16,7 +16,7 @@ class DefaultConnector(AbstractConnector, ConnectorBase):
     
     def stop(self) -> None:
         log.debug(f"shutting down {self}...")
-        log.debug(f"{self} gracefully shutdown.")
+        exit()
 
     def ping(self) -> str:
         log.debug(f"send ping to connector: {self.name}")
