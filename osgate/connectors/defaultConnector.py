@@ -1,7 +1,7 @@
 import time
-import logging
 import random
-from dataclasses import dataclass
+import logging
+from datetime import datetime
 from connectors.connector import AbstractConnector, ConnectorBase
 
 log = logging.getLogger(__name__)
@@ -11,21 +11,29 @@ class DefaultConnector(AbstractConnector, ConnectorBase):
        Emulates polling of some devices at given interval (based of osgate.json config). 
     """
     protocol = "default"
-    last_polled = {} # device_uuid.channel.name : datetime.datetime
+    last_seen = {}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for device in self.devices:
+            for channel in device.channels:
+                identifer = ".".join((device.uuid, channel.unit))
+                self.last_seen[identifer] = datetime.now()
 
     def poll(self):
         """Polls devices via their channels if last poll was outside of the provided interval"""
         for device in self.devices:
             for channel in device.channels:
-                value = random.randint(0, 255)
-                log.debug(f"{device.name} generated value {value} {channel.unit} from channel: {channel.name}")
-
-                # how to handle poll timers? Refactor device channel? Timedelta?
+                value = random.randint(0,255)
+                log.debug(f"ValueChanged Event from {device}, {value=}", {channel.unit})
+                identifer = ".".join((device.uuid, channel.unit))
+                self.last_seen[identifer] = datetime.now()
 
     def run(self):
+        log.debug(f"{self} starting polling")
         while True:
-            log.debug(f"{self} connector running, brum brum...")            
-            time.sleep(1)
+            time.sleep(0.2)
+            self.poll()
 
     def stop(self):
         log.debug(f"shutting down {self}...")
@@ -34,7 +42,3 @@ class DefaultConnector(AbstractConnector, ConnectorBase):
     def ping(self) -> str:
         log.debug(f"send ping to connector: {self.name}")
         return "pong"
-
-    def parse_interval_string(interval: str) -> int:
-        """Parses an interval string, e.g. '60s' to the corresponding milliseconds in python"""
-        return 1000
