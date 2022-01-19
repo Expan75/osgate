@@ -21,12 +21,12 @@
                         {
                             "name": "energy_kwh",
                             "unit": "kwh",
-                            "interval": "120s"
+                            "interval": 120
                         },
                         {
                             "name": "energy_kw",
                             "unit": "kw",
-                            "interval": "15s"
+                            "interval": 15
                         }
                     ]
                 },
@@ -38,7 +38,7 @@
                         {
                             "name": "temperature",
                             "unit": "degrees_celcius",
-                            "interval": "60s"
+                            "interval": 60
                         }
                     ]
                 }
@@ -58,7 +58,7 @@
                         {
                             "name": "temperature",
                             "unit": "degrees_celcius",
-                            "interval": "60s"
+                            "interval": 60
                         }
                     ]
                 },
@@ -70,7 +70,7 @@
                         {
                             "name": "temperature",
                             "unit": "degrees_celcius",
-                            "interval": "60s"
+                            "interval": 60
                         }
                     ]
                 }
@@ -94,7 +94,7 @@
                         {
                             "name": "temperature",
                             "unit": "degrees_celcius",
-                            "interval": "60s"
+                            "interval": 60
                         }
                     ]
                 }

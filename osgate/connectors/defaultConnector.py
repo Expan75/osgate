@@ -1,7 +1,7 @@
 import time
 import random
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from connectors.connector import AbstractConnector, ConnectorBase
 
 log = logging.getLogger(__name__)
@@ -11,23 +11,28 @@ class DefaultConnector(AbstractConnector, ConnectorBase):
        Emulates polling of some devices at given interval (based of osgate.json config). 
     """
     protocol = "default"
-    last_seen = {}
+    last_polled: dict[str: datetime] = {}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for device in self.devices:
             for channel in device.channels:
                 identifer = ".".join((device.uuid, channel.unit))
-                self.last_seen[identifer] = datetime.now()
+                self.last_polled[identifer] = datetime.now()
 
     def poll(self):
         """Polls devices via their channels if last poll was outside of the provided interval"""
         for device in self.devices:
             for channel in device.channels:
-                value = random.randint(0,255)
-                log.debug(f"ValueChanged Event from {device}, {value=}", {channel.unit})
                 identifer = ".".join((device.uuid, channel.unit))
-                self.last_seen[identifer] = datetime.now()
+                # only poll if enough time has elapsed
+                time_passed = datetime.now() - self.last_polled[identifer]
+                if (time_passed.seconds) > channel.interval_timedelta.seconds:
+                    value = random.randint(0,255)
+                    log.debug(f"ValueChanged Event(ts={datetime.now()},device={device.name},{value=},{channel.unit=}")
+                    self.last_polled[identifer] = datetime.now()
+                else:
+                    continue
 
     def run(self):
         log.debug(f"{self} starting polling")

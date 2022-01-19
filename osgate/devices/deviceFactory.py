@@ -16,7 +16,7 @@ def create_device(device_type: str, device_data: dict) -> Device:
     name        = device_data.get("name")
     uuid        = device_data.get("uuid")
     meta        = device_data.get("meta")
-    channels    = [create_device_channel(channel) for channel in device_data.get("channels")],
+    channels    = [create_device_channel(channel) for channel in device_data.get("channels")]
     
     match device_type: 
         case "default": return DefaultDevice(name, uuid, channels, meta)
