@@ -21,4 +21,4 @@ def create_device(device_type: str, device_data: dict) -> Device:
     match device_type: 
         case "default": return DefaultDevice(name, uuid, channels, meta)
         case _:
-            raise ValueError(f"Invalid device type: {device_type}; perhaps there's a typo in the config file.")
+            raise NotImplementedError(f"Invalid device type: {device_type}; perhaps there's a typo in the config file.")
