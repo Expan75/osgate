@@ -5,11 +5,11 @@ from threading import Thread
 class AbstractSink(ABC):
     """Used to represent a final 'place' that data gets sent to, e.g. local file, remote storage, or MQTT broker."""
     @abstractmethod
-    def run() -> None:
-        pass
-
-    @abstractmethod
     def flush() -> None:
+        pass
+    
+    @abstractmethod
+    def run() -> None:
         pass
 
 class SinkBase(Thread):
@@ -18,3 +18,6 @@ class SinkBase(Thread):
         Thread.__init__(self, daemon=True)
         self.meta = meta
         self.queue = queue
+
+    def __str__(self):
+        return f"Sink:{self.queue}"

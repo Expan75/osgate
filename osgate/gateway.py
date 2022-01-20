@@ -29,21 +29,6 @@ class GatewayService():
 		self.connectors = loaded_connectors
 		log.debug(f"{len(loaded_connectors)} connectors loaded")
 
-	def start_connectors(self):
-		"""Starts a background thread for each connector"""
-		for connector in self.connectors:
-			connector.start()
-
-	def stop_connectors(self):
-		"""Gracefully stops the background thread for each connector"""
-		for connector in self.connectors:
-			connector.stop()
-
-	def restart_connectors(self):
-		"""Gracefully reloads the configuration and restarts the background thread for each connector"""
-		self.stop_connectors()
-		self.load_connectors()
-		self.start_connectors()
 
 	def list_devices(self, connector_name: str) -> list:
 		"""List devices of a connector (requires a name)"""
@@ -60,6 +45,22 @@ class GatewayService():
 		response = JSONRPCResponseManager.handle(
 			request.data, dispatcher)
 		return Response(response.json, mimetype='application/json')
+	
+	def start_connectors(self):
+		"""Starts a background thread for each connector"""
+		for connector in self.connectors:
+			connector.start()
+
+	def stop_connectors(self):
+		"""Gracefully stops the background thread for each connector"""
+		for connector in self.connectors:
+			connector.stop()
+
+	def restart_connectors(self):
+		"""Gracefully reloads the configuration and restarts the background thread for each connector"""
+		self.stop_connectors()
+		self.load_connectors()
+		self.start_connectors()
 
 	def run(self):
 		log.info(f"GatewayService fully initalised, starting device collection using {len(self.connectors)} connectors")
