@@ -38,10 +38,6 @@ class MqttConnector(AbstractConnector, ConnectorBase):
 
     def on_message(self, client, userdata, msg):
         """General callback upon message to topics currently being subscribed too"""
-        # Supported Message Strategies
-        # 1. Single Topic with json key value pair denoting unique device
-        # 2. Multiple topics where each topic represents a device
-        # 3. Mutple topics where each topic represents a device channel
         print(msg.topic+" "+str(msg.payload))
 
     def register_handlers(self):
