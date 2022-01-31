@@ -1,0 +1,108 @@
+{
+    "sinks": [{
+        "id": 1,
+        "type": "mqtt",
+        "name": "localMqttBroker",
+        "meta": {
+            "topic": "telemetry",
+            "host": "localhost",
+            "keepalive": 60,
+            "port": 1883
+        }
+    }],
+    "connectors": [
+        {
+            "protocol": "default",
+            "name": "Kontor server",
+            "uuid": "06660949-eda8-4535-b96f-0d339562a26c",
+            "meta": { "somekey" : "somevalue" },
+            "devices": [
+                {
+                    "type": "default",
+                    "name": "Terminal B",
+                    "uuid": "aef2a553-a463-4f30-ad52-2fd70a6bd65c",
+                    "channels": [
+                        {
+                            "name": "energy_kwh",
+                            "unit": "kwh",
+                            "interval": 120
+                        },
+                        {
+                            "name": "energy_kw",
+                            "unit": "kw",
+                            "interval": 15
+                        }
+                    ]
+                },
+                {
+                    "type": "default",
+                    "name": "Frysterminal",
+                    "uuid": "a5448e71-1bbd-4634-bdd7-06a84bf2649e",
+                    "channels": [
+                        {
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
+                            "interval": 60
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "default",
+            "name": "Serverrum server",
+            "uuid": "57bd86d8-6f7e-4c49-ac6a-d57ff0ca0407",
+            "meta": { "somekey" : "someothervalue" },
+            "devices": [
+                {
+                    "type": "default",
+                    "name": "Fryslager 5",
+                    "uuid": "16cf403a-69cd-462e-bdbf-e1de760d5173",
+                    "channels": [
+                        {
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
+                            "interval": 60
+                        }
+                    ]
+                },
+                {
+                    "type": "default",
+                    "name": "Fryslager 6",
+                    "uuid": "2624a2bf-b325-41b5-9272-75b31ac47fff",
+                    "channels": [
+                        {
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
+                            "interval": 60
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "mqtt",
+            "name": "Lager34",
+            "uuid": "57bd86d8-6f7e-4c49-a26a-d57ff0ca0407",
+            "meta": { 
+                "host": "localhost", 
+                "port": 1883,
+                "keepalive": 60
+            },
+            "devices": [
+                {
+                    "type": "default",
+                    "name": "Fryslager 6",
+                    "uuid": "2444a2bf-b325-41b5-9272-75b31ac47fff",
+                    "channels": [
+                        {
+                            "name": "temperature",
+                            "unit": "degrees_celcius",
+                            "interval": 60
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
