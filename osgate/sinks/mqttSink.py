@@ -7,15 +7,18 @@ from sinks.sink import AbstractSink, SinkBase
 
 log = logging.getLogger(__name__)
 
+
 @dataclass
-class MqttSinkConfiguration():
+class MqttSinkConfiguration:
     host: str
     port: int
     topic: str
     keepalive: int
 
+
 class MqttSink(AbstractSink, SinkBase):
     """Used to export data to a MQTT broker; designed with the intent of the broker running locally"""
+
     client = mqtt_client.Client()
 
     def __init__(self, *args, **kwargs):

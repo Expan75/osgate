@@ -6,12 +6,14 @@ from connectors.connector import AbstractConnector, ConnectorBase
 
 log = logging.getLogger(__name__)
 
+
 class DefaultConnector(AbstractConnector, ConnectorBase):
     """Used for testing of design pattern; allows non-existing connector and devices to be source of data.
-       Emulates polling of some devices at given interval (based of osgate.json config). 
+    Emulates polling of some devices at given interval (based of osgate.json config).
     """
+
     protocol = "default"
-    last_polled: dict[str: datetime] = {}
+    last_polled: dict[str:datetime] = {}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,17 +29,17 @@ class DefaultConnector(AbstractConnector, ConnectorBase):
                 identifer = ".".join((device.uuid, channel.unit))
                 # only poll if enough time has elapsed
                 time_passed = datetime.now() - self.last_polled[identifer]
-                if (time_passed.seconds > channel.interval_timedelta.seconds):
+                if time_passed.seconds > channel.interval_timedelta.seconds:
                     event = {
                         "ts": datetime.now().isoformat(),
                         "device": device.uuid,
                         "channel": channel.unit,
-                        "value": random.randint(0,255)
+                        "value": random.randint(0, 255),
                     }
                     log.debug(f"ValueChanged event: {event=}")
                     for sink in self.sinks:
                         sink.flush(event)
-                    
+
                     self.last_polled[identifer] = datetime.now()
                 else:
                     continue
