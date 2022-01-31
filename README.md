@@ -105,6 +105,24 @@ Regardless if you are getting reviewed or are reviewing, you should comply with 
 pip install black
 black ./osgate
 ```
+
+### Exceptions to whats covered in styling
+
+Black does not yet cover all of python3.10 syntax, so if something is not detected correctly, you can always flag it:
+
+```python
+    # fmt: off
+    match protocol:
+        case "default":
+            return DefaultConnector(name, uuid, devices, sinks, connector_metadata)
+        case "mqtt":
+            return MqttConnector(name, uuid, devices, sinks, connector_metadata)
+        case _:
+            raise NotImplementedError(
+                f"No connector of protocol {protocol} exists! Perhaps there's a typo in the config."
+            )
+    # fmt: on
+```
 ### Continuous Integration and Continuous Deployment
 Insert brief explanation of CI/CD pipeline here.
 ```console
