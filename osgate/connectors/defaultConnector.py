@@ -41,8 +41,6 @@ class DefaultConnector(AbstractConnector, ConnectorBase):
                         sink.flush(event)
 
                     self.last_polled[identifer] = datetime.now()
-                else:
-                    continue
 
     def run(self):
         log.debug(f"{self} starting polling")
