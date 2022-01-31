@@ -10,8 +10,8 @@ osgate is an opionated open source python implmentation of an indsutrial grade I
 This is just to frame some form of commitment. Note that these are in no particular order.
 
 - [x] Inital Project setup with resource-2-class layout.
-- [ ] Lock down data sourcing strategy across connectors.
-- [ ] Durable exportService for efficent data export via MQTT cloud bridge.
+- [x] Lock down data sourcing strategy across connectors (two kinds; listener and poller, e.g. mqtt vs. mbus).
+- [x] Durable exportService for efficent data export via MQTT cloud bridge.
 - [ ] Durable Remote-first configuration with local fallback.
 - [ ] Basic RPC management, including authentication by API key.
 - [ ] Allow configurable data transformation/filtering on a channel level.
