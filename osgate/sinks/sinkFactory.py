@@ -14,6 +14,7 @@ def create_sink(sink_data: dict):
 
     log.debug(f"creating sink using data: {sink_data=}")
 
+    # fmt: off
     match sink_type:
         case "mqtt":
             return MqttSink(name, queue, sink_metadata)
@@ -21,3 +22,4 @@ def create_sink(sink_data: dict):
             raise NotImplementedError(
                 f"No sink of {sink_type=} exists! Perhaps there's a typo in the config."
             )
+    # fmt: on

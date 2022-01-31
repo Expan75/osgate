@@ -22,6 +22,7 @@ def create_device(device_type: str, device_data: dict) -> Device:
         create_device_channel(channel) for channel in device_data.get("channels")
     ]
 
+    # fmt: off
     match device_type:
         case "default":
             return DefaultDevice(name, uuid, channels, meta)
@@ -29,3 +30,4 @@ def create_device(device_type: str, device_data: dict) -> Device:
             raise NotImplementedError(
                 f"Invalid device type: {device_type}; perhaps there's a typo in the config file."
             )
+    # fmt: on

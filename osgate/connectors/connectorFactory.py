@@ -19,6 +19,7 @@ def create_connector(connector_data: dict):
     log.debug(
         f"creating connector /w protocol {protocol} using data: {connector_data=}"
     )
+    # fmt: off
     match protocol:
         case "default":
             return DefaultConnector(name, uuid, devices, sinks, connector_metadata)
@@ -28,3 +29,4 @@ def create_connector(connector_data: dict):
             raise NotImplementedError(
                 f"No connector of protocol {protocol} exists! Perhaps there's a typo in the config."
             )
+    # fmt: on
