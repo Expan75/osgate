@@ -1,17 +1,9 @@
 # osgate
 
-Osgate is an opionated open source python implmentation of an indsutrial grade IoT gateway; primarily aimed at data collection via sensors in an industrial context Design-wise. The primary opinions are:
-1. Export to a local MQTT broker (bridged to a cloud broker) is the default way of getting data out. This ensures a cloud-agnostic and durable (via persistant sessions) data export strategy.
+osgate is an opionated open source python implmentation of an indsutrial grade IoT gateway; primarily aimed at data collection via sensors in an industrial context Design-wise. The primary opinions are:
+1. Export to a local MQTT broker (bridged to a cloud broker) is the one and only way of getting data out. This ensures a cloud-agnostic and durable (via persistant sessions) data export strategy.
 2. Configuration is designed with a pull-first strategy. This ensures the burden of truth is placed on some aggregate system rather than individual gateways.
-3. In a further bid to reduce complexity, no on-board database is used (the configuration is cached though to ensure durability).
-
-# Minor note on architecture
-
-The project is inspired by the gateway built by Thingsboard. In short, the main pieces are:
-- Device - represents a physical entity in the real world; usually a sensor of some kind.
-- Connector - bridge on which data walks to and from a device to the gateway. Facilitaes all forms of communication, including commands send to the devices (e.g. mbus).
-- Sink - resting place of data sourced from devices through connectors. Connectors use sinks to export and persist data.
-- GatewayService - acting as controller of the gateway. Runs a jsonrpc server and delegates inbound rpc calls.
+3. Given the point above, no internal Database is used in favour of a single cached config .json file.
 
 # Roadmap
 
@@ -28,7 +20,7 @@ This is just to frame some form of commitment. Note that these are in no particu
 - [ ] Modbus connector
 - [ ] Metric-bus (Mbus) connector
 - [ ] ZWAVE connector
-- [ ] Auth + SSL for Mqtt Brokers (both connectors and sinks)
+- [ ] 
 
 # Getting started
 
