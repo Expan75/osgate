@@ -14,8 +14,9 @@ class AbstractSink(ABC):
 
 class SinkBase(Thread):
     """Captures common state for data sinks and common boilerplate methods"""
-    def __init__(self, queue: Queue, meta: dict):
+    def __init__(self, name: str, queue: Queue, meta: dict):
         Thread.__init__(self, daemon=True)
+        self.name = name
         self.meta = meta
         self.queue = queue
 

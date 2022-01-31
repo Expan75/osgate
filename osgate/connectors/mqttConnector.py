@@ -36,9 +36,9 @@ class MqttConnector(AbstractConnector, ConnectorBase):
         log.debug("Connected with result code "+str(rc))
         client.subscribe("$SYS/#")
 
-    def on_message(self, client, userdata, msg):
+    def on_message(self, client, userdata, message):
         """General callback upon message to topics currently being subscribed too"""
-        print(msg.topic+" "+str(msg.payload))
+        log.debug(f"{self} recived message from {message.topic} /w payload: {str(message.payload)}")
 
     def register_handlers(self):
         self.client.on_connect = self.on_connect

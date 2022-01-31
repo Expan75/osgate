@@ -28,8 +28,16 @@ class DefaultConnector(AbstractConnector, ConnectorBase):
                 # only poll if enough time has elapsed
                 time_passed = datetime.now() - self.last_polled[identifer]
                 if (time_passed.seconds > channel.interval_timedelta.seconds):
-                    value = random.randint(0,255)
-                    log.debug(f"ValueChanged Event(ts={datetime.now()},device={device.name},{value=},{channel.unit=}")
+                    event = {
+                        "ts": datetime.now().isoformat(),
+                        "device": device.uuid,
+                        "channel": channel.unit,
+                        "value": random.randint(0,255)
+                    }
+                    log.debug(f"ValueChanged event: {event=}")
+                    for sink in self.sinks:
+                        sink.flush(event)
+                    
                     self.last_polled[identifer] = datetime.now()
                 else:
                     continue

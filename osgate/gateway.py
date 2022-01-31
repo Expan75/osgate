@@ -6,45 +6,45 @@ from werkzeug.serving import run_simple
 
 from configuration import ConfigurationService
 from connectors.connectorFactory import create_connector
+from sinks.sinkFactory import create_sink
 
 log = logging.getLogger(__name__)
 
 class GatewayService():
-	"""Gateway driver: in charge of initalizing dependencies and message traffic (operates as singleton web server)"""
+	"""Gateway driver: in charge of initalizing dependencies and delegating based off jsonrpc requests"""
 	def __init__(self, configService: ConfigurationService):
 		self.queue = Queue(0)
 		self.configurationService = configService
+		self.sinks = []
+		self.connectors = []
+	
+		self.load_sinks()
 		self.load_connectors()
+
+	def load_sinks(self):
+		"""Initalises the data sinks that will be the final destination of sourced data"""
+		sinks = self.configurationService.config["sinks"]
+		for sink_data in sinks:
+			sink_data["queue"] = Queue()
+			sink = create_sink(sink_data)
+			self.sinks.append(sink)
+		log.debug(f"{len(self.connectors)} sinks loaded")
 
 	def load_connectors(self):
 		"""Initalises connector instances based off config; can be used to reload and reflect changed config state"""
-		log.debug("Loading connectors")
 		connectors = self.configurationService.config["connectors"]
-		loaded_connectors = []
 		for connector_data in connectors:
-			protocol = connector_data.pop("protocol")
-			connector_data["queue"] = self.queue
-			connector = create_connector(protocol, connector_data)
-			loaded_connectors.append(connector)
-		self.connectors = loaded_connectors
-		log.debug(f"{len(loaded_connectors)} connectors loaded")
-
+			# TODO: improve sink pairing to allow matching connectors and sinks based off of sink_id
+			# Currently all connectors share all sinks
+			connector_data["sinks"] = self.sinks
+			connector = create_connector(connector_data)
+			self.connectors.append(connector)
+		log.debug(f"{len(self.connectors)} connectors loaded")
 
 	def list_devices(self, connector_name: str) -> list:
 		"""List devices of a connector (requires a name)"""
 		connector = [connector for connector in self.connectors if connector.name == connector_name]
 		return [device.name for device in connector[0]] if connector else []
-
-	@Request.application
-	def rpc_application(self, request):
-		"""Implments the rpc server method handlers"""
-		dispatcher["ping"] = lambda: "pong"
-		dispatcher["connectors.list"] = lambda: [{"protocol": connector.protocol, "name": connector.name} for connector in self.connectors]
-		dispatcher["devices.list"] = lambda connector_name: self.list_devices(connector_name)
-
-		response = JSONRPCResponseManager.handle(
-			request.data, dispatcher)
-		return Response(response.json, mimetype='application/json')
 	
 	def start_connectors(self):
 		"""Starts a background thread for each connector"""
@@ -66,3 +66,15 @@ class GatewayService():
 		log.info(f"GatewayService fully initalised, starting device collection using {len(self.connectors)} connectors")
 		self.start_connectors()
 		run_simple("localhost", 9090, self.rpc_application)
+	
+	# TODO: encapsulate the RPC better
+	@Request.application
+	def rpc_application(self, request):
+		"""Implments the rpc server method handlers"""
+		dispatcher["ping"] = lambda: "pong"
+		dispatcher["devices.list"] = lambda connector_name: self.list_devices(connector_name)
+		dispatcher["connectors.list"] = lambda: [{"protocol": connector.protocol, "name": connector.name} for connector in self.connectors]
+
+		response = JSONRPCResponseManager.handle(
+			request.data, dispatcher)
+		return Response(response.json, mimetype='application/json')

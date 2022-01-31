@@ -1,11 +1,15 @@
 {
-    "mqtt": {
-        "host": "localhost",
-        "port": 8883,
-        "configurationTopic": "",
-        "telemetryTopic": "",
-        "loggingTopic": ""
-    },
+    "sinks": [{
+        "id": 1,
+        "type": "mqtt",
+        "name": "localMqttBroker",
+        "meta": {
+            "topic": "telemetry",
+            "host": "localhost",
+            "keepalive": 60,
+            "port": 1883
+        }
+    }],
     "connectors": [
         {
             "protocol": "default",

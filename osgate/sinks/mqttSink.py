@@ -1,3 +1,4 @@
+import json
 import time
 import logging
 from dataclasses import dataclass
@@ -21,10 +22,11 @@ class MqttSink(AbstractSink, SinkBase):
         super().__init__(*args, **kwargs)
         self.config = MqttSinkConfiguration(**self.meta)
 
-    def flush(self, event):
-        log.info(f"MqttSink Flushing {event=}")
+    def flush(self, event: dict):
+        payload = json.dumps(event)
+        log.debug(f"MqttSink Flushing {event=} in topic {self.config.topic}")
         self.client.connect(self.config.host, self.config.port)
-        self.client.publish(self.config.topic, payload=event)
+        self.client.publish(self.config.topic, payload=payload)
         self.client.disconnect()
 
     def stop(self):
