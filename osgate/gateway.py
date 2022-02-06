@@ -5,8 +5,8 @@ from werkzeug.wrappers import Request, Response
 from werkzeug.serving import run_simple
 
 from configuration import ConfigurationService
-from connectors.connectorFactory import create_connector
-from sinks.sinkFactory import create_sink
+from connectors import connectorFactory
+from sinks import sinkFactory
 
 log = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ class GatewayService:
         sinks = self.configurationService.config["sinks"]
         for sink_data in sinks:
             sink_data["queue"] = Queue()
-            sink = create_sink(sink_data)
+            sink = sinkFactory.create_sink(sink_data)
             self.sinks.append(sink)
         log.debug(f"{len(self.connectors)} sinks loaded")
 
@@ -39,7 +39,7 @@ class GatewayService:
             # TODO: improve sink pairing to allow matching connectors and sinks based off of sink_id
             # Currently all connectors share all sinks
             connector_data["sinks"] = self.sinks
-            connector = create_connector(connector_data)
+            connector = connectorFactory.create_connector(connector_data)
             self.connectors.append(connector)
         log.debug(f"{len(self.connectors)} connectors loaded")
 

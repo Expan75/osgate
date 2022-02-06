@@ -2,7 +2,6 @@ import logging
 
 from connectors.defaultConnector import DefaultConnector
 from connectors.mqttConnector import MqttConnector
-from sinks.sink import AbstractSink
 
 log = logging.getLogger(__name__)
 
