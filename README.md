@@ -52,7 +52,17 @@ This part of guide assumes you the above dependencies are installed and in your 
     ```
 3. Start local MQTT broker (mosquitto)
     ```console
-    # Note you may need to change the path here depending on your OS
+
+    # Option 1: Start via docker
+    docker pull eclipse-mosquitto
+    docker run -it --name mosquitto -p 1883:1883 eclipse-mosquitto
+    
+    docker stop mosquitto
+    docker start mosquitto
+
+    # use a volume if you want to use a configuration file AND/OR verify persisted messages!
+
+    # Option 2: Start via local install (your paths might be different)
     bash /usr/local/opt/mosquitto/sbin/mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf
     ```
 4. Copy example configuration
