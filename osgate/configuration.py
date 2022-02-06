@@ -33,16 +33,15 @@ class ConfigurationService:
         )
 
     def read_config_file(self):
-        log.debug(f"trying to read config from: {self.filepath}")
         try:
             with open(self.filepath, "r") as config_file:
                 config = json.load(config_file)
         except (FileNotFoundError, IsADirectoryError) as e:
             log.error(f"Configfile could not be found at {self.filepath}")
             raise e
-        log.debug("Loaded configuration file.")
+        log.debug(f"Loaded configuration file from {self.filepath}")
         return config
 
-    def flush_config_file(self, config: str):
+    def flush_config_file(self, config: dict):
         with open(self.filepath, "w") as file:
             file.write(config)

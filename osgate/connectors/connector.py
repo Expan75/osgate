@@ -31,9 +31,7 @@ class ConnectorBase(Thread):
         self.uuid = uuid
         self.sinks = sinks
         self.meta = meta
-
-        device_types = [device.pop("type") for device in devices]
-        self.devices = [create_device(*device) for device in zip(device_types, devices)]
+        self.devices = [create_device(device) for device in devices]
 
     def __str__(self):
         return f"{self.name} ({self.protocol}) - devices={len(self.devices)}, sinks={len(self.sinks)})"

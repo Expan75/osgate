@@ -36,8 +36,6 @@ class GatewayService:
         """Initalises connector instances based off config; can be used to reload and reflect changed config state"""
         connectors = self.configurationService.config["connectors"]
         for connector_data in connectors:
-            # TODO: improve sink pairing to allow matching connectors and sinks based off of sink_id
-            # Currently all connectors share all sinks
             connector_data["sinks"] = self.sinks
             connector = connectorFactory.create_connector(connector_data)
             self.connectors.append(connector)
@@ -69,10 +67,10 @@ class GatewayService:
         self.start_connectors()
 
     def run(self):
-        log.info(
-            f"GatewayService fully initalised, starting device collection using {len(self.connectors)} connectors"
-        )
         self.start_connectors()
+        log.info(
+            f"Connectors started, starting jsonrpc server..."
+        )
         run_simple("localhost", 9090, self.rpc_application)
 
     # TODO: encapsulate the RPC better
