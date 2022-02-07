@@ -1,6 +1,6 @@
 # osgate
 
-Osgate is an opionated open source python implmentation of an IoT gateway; primarily aimed at data collection via sensors in an industrial context. The primary opinions are:
+Osgate is an opinionated open source python implmentation of an IoT gateway; primarily aimed at data collection via sensors in an industrial context. The primary opinions are:
 1. Export to a local MQTT broker (bridged to a cloud broker) is the default way of getting data out. This ensures a cloud-agnostic and durable (via persistant sessions) data export strategy.
 2. Configuration is designed with a pull-first strategy. This ensures the burden of truth is placed on some aggregate system rather than individual gateways. Note that the gateway can be run using local configuration file as well (e.g., completely deployable without having set up a platform that includes remote configuration)..
 3. In a further bid to reduce complexity, no on-board database is used (the configuration is cached though to ensure durability). Similarly, persistance of data is ensured given the usage of a local MQTT broker and persistant sessions.
@@ -9,7 +9,7 @@ Osgate is an opionated open source python implmentation of an IoT gateway; prima
 
 The project is inspired by the gateway built by Thingsboard. In short, the main pieces are:
 - Device - represents a physical entity in the real world; usually a sensor of some kind.
-- Connector - bridge on which data walks to and from a device to the gateway. Facilitates all forms of communication, including commands send to the devices (e.g. mbus).
+- Connector - bridge on which device data walks to and from a device to the gateway. Facilitates all forms of communication, including commands send to the devices (e.g. mbus).
 - Sink - resting place of data sourced from devices through connectors. Connectors use sinks to export and persist data.
 - GatewayService - acting as controller of the gateway. Runs a jsonrpc server and delegates inbound rpc calls.
 

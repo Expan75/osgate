@@ -75,6 +75,8 @@ class GatewayService:
     @Request.application
     def rpc_application(self, request):
         """Implments the rpc server method handlers"""
+
+        # TODO: enable connectors to be in charge of what methods are exposed
         dispatcher["ping"] = lambda: "pong"
         dispatcher["devices.list"] = lambda connector_name: self.list_devices(
             connector_name

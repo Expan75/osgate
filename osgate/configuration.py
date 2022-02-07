@@ -32,8 +32,8 @@ class ConfigurationService:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         )
 
-    def parse_config(self):
-        with open(self.filepath, "r") as config_file:
+    def parse_config(self, filepath):
+        with open(filepath, "r") as config_file:
             parsed_config = json.load(config_file)
         self.config = parsed_config
 

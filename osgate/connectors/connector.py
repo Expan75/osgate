@@ -29,8 +29,8 @@ class ConnectorBase(Thread):
         Thread.__init__(self, daemon=True)
         self.name = name
         self.uuid = uuid
-        self.sinks = sinks
         self.meta = meta
+        self.sinks = sinks
         self.devices = [create_device(device) for device in devices]
 
     def __str__(self):
