@@ -6,12 +6,10 @@ from typing import Optional
 
 log = logging.getLogger(__name__)
 
-
 @dataclass
 class ConfigurationArguments:
     debug: bool
     filepath: Optional[str] = None
-
 
 class ConfigurationService:
     """Handles all things configuration; mainly parsing and persisting a json config file (operates as singleton)"""
@@ -23,7 +21,7 @@ class ConfigurationService:
             if args.filepath is not None
             else os.path.join(os.getcwd(), "osgate.json")
         )
-        self.config = self.read_config_file()
+        self.parse_config()
 
     def set_log_level(self, debug: bool):
         log_level = logging.DEBUG if debug else logging.INFO
@@ -32,16 +30,11 @@ class ConfigurationService:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         )
 
-    def read_config_file(self):
-        try:
-            with open(self.filepath, "r") as config_file:
-                config = json.load(config_file)
-        except (FileNotFoundError, IsADirectoryError) as e:
-            log.error(f"Configfile could not be found at {self.filepath}")
-            raise e
-        log.debug(f"Loaded configuration file from {self.filepath}")
-        return config
+    def parse_config(self):
+        with open(self.filepath, "r") as config_file:
+            parsed_config = json.load(config_file)
+        self.config = parsed_config
 
-    def flush_config_file(self, config: dict):
+    def flush_config(self, config: dict):
         with open(self.filepath, "w") as file:
             file.write(config)
