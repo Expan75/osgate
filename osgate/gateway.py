@@ -68,9 +68,7 @@ class GatewayService:
 
     def run(self):
         self.start_connectors()
-        log.info(
-            f"Connectors started, starting jsonrpc server..."
-        )
+        log.info(f"Connectors started, starting jsonrpc server...")
         run_simple("localhost", 9090, self.rpc_application)
 
     # TODO: encapsulate the RPC better

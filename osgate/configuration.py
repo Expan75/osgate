@@ -6,10 +6,12 @@ from typing import Optional
 
 log = logging.getLogger(__name__)
 
+
 @dataclass
 class ConfigurationArguments:
     debug: bool
     filepath: Optional[str] = None
+
 
 class ConfigurationService:
     """Handles all things configuration; mainly parsing and persisting a json config file (operates as singleton)"""

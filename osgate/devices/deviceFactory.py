@@ -15,7 +15,7 @@ def create_device_channel(channel: dict) -> DeviceChannel:
 
 def create_device(device_data: dict) -> Device:
     device_type = device_data.get("type")
-    name = device_data.get("name") 
+    name = device_data.get("name")
     uuid = device_data.get("uuid")
     meta = device_data.get("meta")
     channels = [
