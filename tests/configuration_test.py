@@ -1,7 +1,6 @@
 import pytest
 from osgate import configuration
 
-
 def test_invalid_config_directory():
     args = configuration.ConfigurationArguments(True, "/")
     with pytest.raises(IsADirectoryError):
