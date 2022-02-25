@@ -3,7 +3,7 @@ from typing import List
 from abc import ABC, abstractmethod
 from threading import Thread
 
-from devices.deviceFactory import create_device
+from devices.factory import create_device
 
 
 class AbstractConnector(ABC):

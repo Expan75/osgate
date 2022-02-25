@@ -3,6 +3,7 @@ import time
 import logging
 from dataclasses import dataclass
 from paho.mqtt import client as mqtt_client
+
 from sinks.sink import AbstractSink, SinkBase
 
 log = logging.getLogger(__name__)

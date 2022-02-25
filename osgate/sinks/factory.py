@@ -1,6 +1,6 @@
 import logging
 
-from sinks.mqttSink import MqttSink
+from sinks.mqtt import MqttSink
 
 log = logging.getLogger(__name__)
 

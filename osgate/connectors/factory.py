@@ -1,7 +1,7 @@
 import logging
 
-from connectors.defaultConnector import DefaultConnector
-from connectors.mqttConnector import MqttConnector
+from osgate.connectors.default import DefaultConnector
+from osgate.connectors.mqtt import MqttConnector
 
 log = logging.getLogger(__name__)
 
