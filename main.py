@@ -1,6 +1,6 @@
-from cli import parse_args
-from gateway import GatewayService
-from configuration import ConfigurationService, ConfigurationArguments
+from osgate.cli import parse_args
+from osgate.gateway import GatewayService
+from osgate.configuration import ConfigurationService, ConfigurationArguments
 
 
 def main():

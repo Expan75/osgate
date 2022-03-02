@@ -4,9 +4,9 @@ from jsonrpc import JSONRPCResponseManager, dispatcher
 from werkzeug.wrappers import Request, Response
 from werkzeug.serving import run_simple
 
-from configuration import ConfigurationService
-from connectors.factory import create_connector
-from sinks.factory import create_sink
+from osgate.configuration import ConfigurationService
+from osgate.connectors import connectorFactory
+from osgate.sinks import sinkFactory
 
 log = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ class GatewayService:
         sinks = self.configurationService.config["sinks"]
         for sink_data in sinks:
             sink_data["queue"] = Queue()
-            sink = create_sink(sink_data)
+            sink = sinkFactory.create_sink(sink_data)
             self.sinks.append(sink)
         log.debug(f"{len(self.connectors)} sinks loaded")
 
@@ -37,7 +37,7 @@ class GatewayService:
         connectors = self.configurationService.config["connectors"]
         for connector_data in connectors:
             connector_data["sinks"] = self.sinks
-            connector = create_connector(connector_data)
+            connector = connectorFactory.create_connector(connector_data)
             self.connectors.append(connector)
         log.debug(f"{len(self.connectors)} connectors loaded")
 

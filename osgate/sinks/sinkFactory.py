@@ -1,6 +1,6 @@
 import logging
 
-from sinks.mqtt import MqttSink
+from osgate.sinks.mqttSink import MqttSink
 
 log = logging.getLogger(__name__)
 

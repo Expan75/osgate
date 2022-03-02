@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass
 from paho.mqtt import client as mqtt_client
 
-from connectors.connector import AbstractConnector, ConnectorBase
+from osgate.connectors.connector import AbstractConnector, ConnectorBase
 
 log = logging.getLogger(__name__)
 

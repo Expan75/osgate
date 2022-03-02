@@ -3,7 +3,7 @@ import random
 import logging
 from datetime import datetime
 
-from connectors.connector import AbstractConnector, ConnectorBase
+from osgate.connectors.connector import AbstractConnector, ConnectorBase
 
 log = logging.getLogger(__name__)
 
