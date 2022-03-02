@@ -1,12 +1,12 @@
 import unittest
 from uuid import uuid4 as uuid
 
-from osgate.devices.deviceFactory import create_device
+from osgate.devices import deviceFactory
 
 
 class DeviceFactoryTests(unittest.TestCase):
     def testValidCreation(self):
-        device = create_device(
+        device = deviceFactory.create_device(
             {
                 "name": "sensorname",
                 "type": "default",
@@ -19,7 +19,7 @@ class DeviceFactoryTests(unittest.TestCase):
 
     def testInvalidCreation(self):
         with self.assertRaises(NotImplementedError):
-            device = create_device(
+            device = deviceFactory.create_device(
                 {
                     "name": "sensorname",
                     "type": "not something real",
